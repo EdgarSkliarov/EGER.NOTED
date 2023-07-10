@@ -1,0 +1,257 @@
+<div id="toolbar">
+  <style>
+    #editor {
+      border: 1px solid #4d4a4a;
+      padding: 10px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+    }
+
+    #toolbar {
+      background-color: #f5f5f5;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #toolbar button {
+      font-size: 20px;
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+      padding: 4px 8px;
+    }
+
+    #toolbar button.active {
+      background-color: #a0d6b4;
+    }
+
+    @media (max-width: 600px) {
+      #editor {
+        width: 100%;
+      }
+    }
+  </style>
+  <div style="position: absolute; top:100px;">
+    <button id="bold">B</button>
+    <button id="underline">U</button>
+    <button id="italic">𝐼</button>
+
+    <button id="decreaseSize">-</button>
+    <select id="fontSize">
+      <option value="5">1</option>
+      <option value="6">2</option>
+      <option value="7">3</option>
+      <option value="8">4</option>
+      <option value="9">5</option>
+      <option value="10">6</option>
+      <option value="11">7</option>
+      <option value="12">8</option>
+      <option value="13">9</option>
+      <option value="14">10</option>
+      <option value="15">11</option>
+      <option value="16">12</option>
+      <option value="17">13</option>
+      <option value="18">14</option>
+    </select>
+    <button id="increaseSize">+</button>
+    <button id="applyFontSize">Apply</button>
+    <button id="undo">↶</button>
+    <button id="redo">↷</button>
+    <button id="alignLeft">Align Left</button>
+    <button id="alignCenter">Align Center</button>
+    <button id="alignRight">Align Right</button>
+    <div id="editor" contenteditable="true"></div>
+  </div>
+</div>
+
+<script>
+  const applyFontSizeButton = document.getElementById('applyFontSize');
+  applyFontSizeButton.addEventListener('click', setFontSize);
+
+  const alignLeftButton = document.getElementById('alignLeft');
+  alignLeftButton.addEventListener('click', () => {
+    document.execCommand('justifyLeft', false, null);
+  });
+
+  const alignCenterButton = document.getElementById('alignCenter');
+  alignCenterButton.addEventListener('click', () => {
+    document.execCommand('justifyCenter', false, null);
+  });
+
+  const alignRightButton = document.getElementById('alignRight');
+  alignRightButton.addEventListener('click', () => {
+    document.execCommand('justifyRight', false, null);
+  });
+
+  const undoButton = document.getElementById('undo');
+  undoButton.addEventListener('click', () => {
+    document.execCommand('undo', false, null);
+  });
+
+  const redoButton = document.getElementById('redo');
+  redoButton.addEventListener('click', () => {
+document.execCommand('redo', false, null);
+});
+
+const boldButton = document.getElementById('bold');
+boldButton.addEventListener('click', () => {
+document.execCommand('bold', false, null);
+});
+
+const underlineButton = document.getElementById('underline');
+underlineButton.addEventListener('click', () => {
+document.execCommand('underline', false, null);
+});
+
+const italicButton = document.getElementById('italic');
+italicButton.addEventListener('click', () => {
+document.execCommand('italic', false, null);
+});
+
+const decreaseSizeButton = document.getElementById('decreaseSize');
+decreaseSizeButton.addEventListener('click', () => {
+let currentFontSize = parseInt(window.getComputedStyle(editor).getPropertyValue('font-size'));
+currentFontSize -= 2;
+document.execCommand('fontSize', false, currentFontSize);
+});
+
+const increaseSizeButton = document.getElementById('increaseSize');
+increaseSizeButton.addEventListener('click', () => {
+let currentFontSize = parseInt(window.getComputedStyle(editor).getPropertyValue('font-size'));
+currentFontSize += 2;
+document.execCommand('fontSize', false, currentFontSize);
+});
+
+const maxFontSize = 72;
+function setFontSize() {
+  const selectedSize = document.getElementById('fontSize').value;
+  let newSize = selectedSize + 'px';
+  if (selectedSize > maxFontSize) {
+    newSize = maxFontSize + 'px';
+  }
+  document.execCommand('fontSize', false, newSize);
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const savedDocument = localStorage.getItem('savedDocument');
+  if (savedDocument) {
+    editor.innerHTML = savedDocument;
+  }
+  setInterval(() => {
+    localStorage.setItem('savedDocument', editor.innerHTML);
+  }, 5000);
+});
+</script>
+<style>
+  #editor [size="1"] {
+    font-size: 8px;
+  }
+  #editor [size="2"] {
+    font-size: 10px;
+  }
+  #editor [size="3"] {
+    font-size: 12px;
+  }
+  #editor [size="4"] {
+    font-size: 14px;
+  }
+  #editor [size="5"] {
+    font-size: 16px;
+  }
+  #editor [size="6"] {
+    font-size: 18px;
+  }
+  #editor [size="7"] {
+    font-size: 20px;
+  }
+  #editor [size="8"] {
+    font-size: 22px;
+  }
+  #editor [size="9"] {
+    font-size: 24px;
+  }
+  #editor [size="10"] {
+    font-size: 26px;
+  }
+  #editor [size="11"] {
+    font-size: 28px;
+  }
+  #editor [size="12"] {
+    font-size: 36px;
+  }
+  #editor [size="13"] {
+    font-size: 48px;
+  }
+  #editor [size="14"] {
+    font-size: 72px;
+  }
+  
+</style> 
+</script>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notes App</title>
+  <style>
+    .menu {
+      display: flex;
+      align-items: center;
+      background-color: #f5f5f5; 
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      position: fixed; 
+      top: 0;
+      left: 0;
+      width: 100%; 
+      z-index: 2; 
+      height: 60px; 
+    }
+    .menu-title {
+  font-size: 2em; 
+  font-family: 'Roboto', sans-serif; 
+  font-weight: 500; 
+  margin-left: 30px;
+  line-height: 100px; 
+}
+
+.menu-buttons {
+  display: flex;
+  margin-right: 30px;
+  line-height: 100px; 
+}
+
+.menu-button {
+  background-color: transparent;
+  color: #333;
+  border: none;
+  padding: 12px 16px;
+  margin-left: 16px; 
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif; 
+  font-weight: 500; 
+  transition: color 0.2s ease-in-out; 
+}
+
+.menu-button:hover {
+  color: #a0d6b4 ; 
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="menu">
+  <div class="menu-title">NOTED.EGER</div>
+  <div class="menu-buttons">
+    <div class="menu-buttons">
+      <a href="Documents.html"><button class="menu-button">Documents</button></a>
+      <a href="Notes.html"><button class="menu-button">Notes</button></a>
+      <a href="Flash.html"><button class="menu-button">Flash Cards</button></a>
+      <a href="Classes.html"><button class="menu-button">Classses</button></a>
+      <a href="Schedule.html"><button class="menu-button">Schedule</button></a>
+      <a href="Board.html"><button class="menu-button">Board</button></a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

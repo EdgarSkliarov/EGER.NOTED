@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notes App</title>
+  <style>
+    
+    .menu {
+      display: flex;
+      align-items: center;
+      background-color: #f5f5f5; 
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      position: fixed; 
+      top: 0;
+      left: 0;
+      width: 100%; 
+      z-index: 2; 
+      height: 60px; 
+    }
+
+    .menu-title {
+      font-size: 2em; 
+      font-family: 'Roboto', sans-serif; 
+      font-weight: 500; 
+      margin-left: 30px;
+      line-height: 100px; 
+    }
+
+    .menu-buttons {
+      display: flex;
+      margin-right: 30px;
+      line-height: 100px; 
+    }
+
+    .menu-button {
+      background-color: transparent;
+      color: #333;
+      border: none;
+      padding: 12px 16px;
+      margin-left: 16px; 
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif; 
+      font-weight: 500; 
+      transition: color 0.2s ease-in-out; 
+    }
+
+    .menu-button:hover {
+      color: #a0d6b4 ; 
+    }
+
+</style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <div class="menu">
+    <div class="menu-title">NOTED.</div>
+    <div class="menu-buttons">
+      <div class="menu-buttons">
+        <a href="Notes.html"><button class="menu-button">Notes</button></a>
+        <a href="Flash.html"><button class="menu-button">Flash Cards</button></a>
+        <a href="Classes.html"><button class="menu-button">Classses</button></a>
+        <a href="Schedule.html"><button class="menu-button">Schedule</button></a>
+        <a href="Board.html"><button class="menu-button">Board</button></a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
